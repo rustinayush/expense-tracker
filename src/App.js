@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import AddExpenseForm from "./components/AddExpenseForm";
+import AddIncomeForm from "./components/AddIncomeForm";
+import ExpenseList from "./components/ExpenseList";
+import ExpenseSummary from "./components/ExpenseSummary";
+import ExpenseTrends from "./components/ExpenseTrends";
+import "./index.css";
 
 function App() {
+  const [expenses, setExpenses] = useState([]);
+  const [walletBalance, setWalletBalance] = useState(5000);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-container">
+      <h1>Expense Tracker</h1>
+      <div className="balance-container">
+        <h2>Wallet Balance: ${walletBalance}</h2>
+        <AddIncomeForm setWalletBalance={setWalletBalance} />
+      </div>
+      <AddExpenseForm
+        expenses={expenses}
+        setExpenses={setExpenses}
+        walletBalance={walletBalance}
+        setWalletBalance={setWalletBalance}
+      />
+      <ExpenseList expenses={expenses} setExpenses={setExpenses} />
+      <ExpenseSummary expenses={expenses} />
+      <ExpenseTrends expenses={expenses} />
     </div>
   );
 }
